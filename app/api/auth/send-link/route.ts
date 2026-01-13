@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   });
 
   const baseUrl = getBaseUrl(req);
-  const verifyUrl = `${baseUrl}/verify?token=${encodeURIComponent(token)}`;
+  const verifyUrl = `${baseUrl}/api/auth/verify?token=${encodeURIComponent(token)}`;
 
   await sendEmail({
     to: email,
