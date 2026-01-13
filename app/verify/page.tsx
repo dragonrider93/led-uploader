@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function VerifyPage() {
+function VerifyClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -23,5 +23,20 @@ export default function VerifyPage() {
       <h1 style={{ fontSize: 22, fontWeight: 700 }}>Signing you in…</h1>
       <p style={{ marginTop: 8 }}>Please wait.</p>
     </main>
+  );
+}
+
+export default function VerifyPage() {
+  return (
+    <Suspense
+      fallback={
+        <main style={{ maxWidth: 520, margin: "40px auto", padding: 16 }}>
+          <h1 style={{ fontSize: 22, fontWeight: 700 }}>Signing you in…</h1>
+          <p style={{ marginTop: 8 }}>Please wait.</p>
+        </main>
+      }
+    >
+      <VerifyClient />
+    </Suspense>
   );
 }
