@@ -30,7 +30,8 @@ export async function GET(req: Request) {
     res.cookies.set("admin_session", sessionId, {
       httpOnly: true,
       secure: isProd,       // ✅ localhost = false, production = true
-      sameSite: "strict",
+      // Lax allows cookie on top-level navigation from email link.
+      sameSite: "lax",
       path: "/",
       maxAge: days * 24 * 60 * 60,
     });
