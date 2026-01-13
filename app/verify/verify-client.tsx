@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export default function VerifyClient() {
-  const searchParams = useSearchParams();
+type VerifyClientProps = {
+  token: string | null;
+};
+
+export default function VerifyClient({ token }: VerifyClientProps) {
   const router = useRouter();
 
   useEffect(() => {
-    const token = searchParams.get("token");
     if (!token) {
       router.replace("/login");
       return;
@@ -16,7 +18,7 @@ export default function VerifyClient() {
 
     // redirect ke API verify (server will set cookie)
     window.location.href = `/api/auth/verify?token=${encodeURIComponent(token)}`;
-  }, [searchParams, router]);
+  }, [token, router]);
 
   return (
     <main style={{ maxWidth: 520, margin: "40px auto", padding: 16 }}>
